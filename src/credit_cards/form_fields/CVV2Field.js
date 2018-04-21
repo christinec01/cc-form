@@ -7,13 +7,13 @@ type Props = {
   onChange: string => void
 };
 type State = {};
-export default class CreditCardNumber extends React.Component<Props, State> {
+export default class CVV2Field extends React.Component<Props, State> {
   render() {
     const { number, onChange } = this.props;
     return (
       <InputField
         type="number"
-        placeholder="Enter your credit card number"
+        placeholder="CVV2"
         onChange={onChange}
         value={number}
       />
