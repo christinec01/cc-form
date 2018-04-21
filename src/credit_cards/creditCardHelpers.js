@@ -8,5 +8,8 @@ export function isAmEx(number: string): boolean {
 }
 
 export function isKnownCreditVendor(number: string): boolean {
+  if (number.length < 2) {
+    return true;
+  }
   return isVisa(number) || isAmEx(number);
 }

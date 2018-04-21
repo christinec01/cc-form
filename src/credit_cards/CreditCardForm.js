@@ -60,7 +60,7 @@ export default class CreditCardForm extends React.Component<Props, State> {
       expirationMonth,
       expirationYear
     } = this.state;
-
+    console.log(creditCardNumber);
     return (
       <div
         style={{

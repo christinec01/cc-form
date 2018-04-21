@@ -1,7 +1,7 @@
 // @flow
 import React from "react";
 import InputField from "../../base_components/InputField";
-import { isVisa, isAmEx } from "../creditCardHelpers";
+import { isVisa, isAmEx, isKnownCreditVendor } from "../creditCardHelpers";
 
 type Props = {
   number: string | null,
@@ -13,7 +13,7 @@ export default class CreditCardNumber extends React.Component<Props, State> {
     // number may include dashes
     const numberWithoutDashes = number.split("-").join("");
     if (/[A-Za-z]/.test(number[number.length - 1])) {
-      return number.slice(0, number.length - 1);
+      return this.props.onChange(numberWithoutDashes);
     }
     if (isVisa(numberWithoutDashes)) {
       this.props.onChange(numberWithoutDashes.slice(0, 16));
@@ -28,12 +28,17 @@ export default class CreditCardNumber extends React.Component<Props, State> {
     const groupings = groupingsForVendor(number);
     const value = addDashes(number, groupings);
     return (
-      <InputField
-        type="text"
-        placeholder="Enter your credit card number"
-        onChange={this.handleChange}
-        value={value}
-      />
+      <div>
+        <InputField
+          type="text"
+          placeholder="Enter your credit card number"
+          onChange={this.handleChange}
+          value={value}
+        />
+        {number && !isKnownCreditVendor(number) ? (
+          <div>Unrecognized credit card number</div>
+        ) : null}
+      </div>
     );
   }
 }
