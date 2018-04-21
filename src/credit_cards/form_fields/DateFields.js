@@ -31,21 +31,21 @@ export default class DateFields extends React.Component<Props, State> {
           justifyContent: "space-between"
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", flexDirection: "column", width: 140 }}>
           <InputField
             type="number"
             value={month}
             onChange={this.handleMonthChange}
-            placeholder="month"
+            placeholder="Exp. Month"
           />
           <InlineErrors errors={errors} />
         </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", flexDirection: "column", width: 140 }}>
           <InputField
             value={year}
             type="number"
             onChange={this.handleYearChange}
-            placeholder="year"
+            placeholder="Exp. Year"
           />
           <InlineErrors errors={errors} />
           {!isDateValid(month, year) ? "Invalid date" : null}

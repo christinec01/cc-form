@@ -18,7 +18,7 @@ export default class CreditCardNameField extends React.Component<Props, State> {
         <InputField
           type="text"
           value={name}
-          placeholder="Your name as it appears on your credit card"
+          placeholder="Name"
           onChange={onChange}
         />
         <InlineErrors errors={errors} />

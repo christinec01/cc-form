@@ -25,6 +25,18 @@ type Props = {
   onSubmit: FormValue => void
 };
 
+const creditCardImageStyle = {
+  width: 50,
+  border: "4px solid transparent",
+  borderRadius: 3
+};
+
+const activeCreditCardImageStyle = {
+  width: 50,
+  border: "4px solid blue",
+  borderRadius: 3
+};
+
 export default class CreditCardForm extends React.Component<Props, State> {
   state = {
     name: null,
@@ -79,6 +91,7 @@ export default class CreditCardForm extends React.Component<Props, State> {
       expirationYear,
       errors
     } = this.state;
+    const vendor = creditCardNumber ? getCreditVendor(creditCardNumber) : null;
     return (
       <div
         style={{
@@ -87,48 +100,84 @@ export default class CreditCardForm extends React.Component<Props, State> {
           width: 400,
           backgroundColor: "#EDECED",
           borderRadius: 4,
-          padding: 40
+          border: "1px solid black",
+          paddingLeft: 20,
+          paddingRight: 20,
+          paddingTop: 20,
+          paddingBottom: 20
         }}
       >
-        <CreditCardNameField
-          onChange={this.handleNameInputChange}
-          name={name}
-          errors={errors.name}
-        />
-        <CreditCardNumberField
-          onChange={this.handleCreditCardInputChange}
-          number={creditCardNumber}
-          errors={errors.creditCardNumber}
-        />
-
-        <CVV2Field
-          onChange={this.handleCVV2InputChange}
-          number={cvv2}
-          creditCardNumber={creditCardNumber}
-          errors={errors.cvv2}
-        />
-        <DateFields
-          onMonthChange={this.handleMonthChange}
-          month={expirationMonth}
-          onYearChange={this.handleYearChange}
-          year={expirationYear}
-          errors={errors.dates}
-        />
+        <div style={{ paddingBottom: 10, fontWeight: 800, fontSize: 22 }}>
+          Enter your credit card information
+        </div>
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-evenly",
-            paddingLeft: 10,
-            paddingRight: 10
+            paddingLeft: 40,
+            paddingRight: 40
           }}
         >
-          <img className={"creditCardImage"} src={Visa} />
-          <img className={"creditCardImage"} src={AmEx} />
-          <img className={"creditCardImage"} src={MC} />
-          <img className={"creditCardImage"} src={Discover} />
+          <div style={{ paddingTop: 10, paddingBottom: 10 }}>
+            <CreditCardNameField
+              onChange={this.handleNameInputChange}
+              name={name}
+              errors={errors.name}
+            />
+          </div>
+          <div style={{ paddingTop: 10, paddingBottom: 10 }}>
+            <CreditCardNumberField
+              onChange={this.handleCreditCardInputChange}
+              number={creditCardNumber}
+              errors={errors.creditCardNumber}
+            />
+          </div>
+          <div style={{ paddingTop: 10, paddingBottom: 10 }}>
+            <CVV2Field
+              onChange={this.handleCVV2InputChange}
+              number={cvv2}
+              creditCardNumber={creditCardNumber}
+              errors={errors.cvv2}
+            />
+          </div>
+          <div style={{ paddingTop: 10, paddingBottom: 10 }}>
+            <DateFields
+              onMonthChange={this.handleMonthChange}
+              month={expirationMonth}
+              onYearChange={this.handleYearChange}
+              year={expirationYear}
+              errors={errors.dates}
+            />
+          </div>
+          <div
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+              paddingLeft: 10,
+              paddingRight: 10
+            }}
+          >
+            <img
+              style={
+                vendor && vendor.key === "visa"
+                  ? activeCreditCardImageStyle
+                  : creditCardImageStyle
+              }
+              src={Visa}
+            />
+            <img
+              style={
+                vendor && vendor.key === "amex"
+                  ? activeCreditCardImageStyle
+                  : creditCardImageStyle
+              }
+              src={AmEx}
+            />
+            <img style={creditCardImageStyle} src={MC} />
+            <img style={creditCardImageStyle} src={Discover} />
+          </div>
+          <div style={{ paddingTop: 10, paddingBottom: 10 }}>
+            <Button onClick={this.handleSubmit}>Submit</Button>
+          </div>
         </div>
-        <Button onClick={this.handleSubmit}>Submit</Button>
       </div>
     );
   }

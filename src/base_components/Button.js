@@ -3,33 +3,21 @@ import * as React from "react";
 
 type Props = {
   children: React.Element<*> | string,
-  onClick: () => void,
-  disabled?: boolean
-};
-
-const disabledStyle = {
-  backgroundColor: "#d8d8d8",
-  color: "#c4c4c4",
-  borderColor: "#d8d8d8",
-  borderSize: "1px",
-  borderStyle: "solid"
+  onClick: () => void
 };
 
 const enabledStyle = {
-  backgroundColor: "lightGray",
+  backgroundColor: "#00cb89",
   color: "#fff",
-  borderColor: "black",
-  borderSize: "1px",
-  borderStyle: "solid",
-  cursor: "pointer"
+  border: "1px solid #c3c3c3",
+  cursor: "pointer",
+  paddingTop: 10,
+  paddingBottom: 10
 };
 
-export default function Button({ children, onClick, disabled }: Props) {
+export default function Button({ children, onClick }: Props) {
   return (
-    <div
-      onClick={!disabled ? onClick : () => {}}
-      style={!disabled ? enabledStyle : disabledStyle}
-    >
+    <div onClick={onClick} style={enabledStyle}>
       {children}
     </div>
   );

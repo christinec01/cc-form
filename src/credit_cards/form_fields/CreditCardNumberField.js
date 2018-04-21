@@ -44,15 +44,17 @@ export default class CreditCardNumber extends React.Component<Props, State> {
       <div>
         <InputField
           type="text"
-          placeholder="Enter your credit card number"
+          placeholder="Card Number"
           onChange={this.handleChange}
           value={value}
         />
-        {/* with more time, I would find a way to handle edit vs. submission vs. api/backend errors in the same fashion */}
-        <InlineErrors errors={errors} />
-        {number && !isKnownCreditVendor(number) ? (
-          <div>Unrecognized credit card number</div>
-        ) : null}
+        <InlineErrors
+          errors={
+            number && !isKnownCreditVendor(number)
+              ? errors.concat(["Unrecognized credit card"])
+              : errors
+          }
+        />
       </div>
     );
   }

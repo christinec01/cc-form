@@ -8,6 +8,10 @@ type Props = {
 export default class InlineErrors extends React.Component<Props> {
   render() {
     const { errors } = this.props;
-    return <div>{errors.map(error => <div>{error}</div>)}</div>;
+    return (
+      <div style={{ color: "red" }}>
+        {errors.map(error => <div>{error}</div>)}
+      </div>
+    );
   }
 }

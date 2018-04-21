@@ -16,7 +16,9 @@ class App extends Component {
         className="App"
         style={{ display: "flex", justifyContent: "center" }}
       >
-        <CreditCardForm onSubmit={this.handleSubmit} />
+        <div style={{ padding: 40 }}>
+          <CreditCardForm onSubmit={this.handleSubmit} />
+        </div>
       </div>
     );
   }
