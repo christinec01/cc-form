@@ -60,7 +60,6 @@ export default class CreditCardForm extends React.Component<Props, State> {
       expirationMonth,
       expirationYear
     } = this.state;
-    console.log(creditCardNumber);
     return (
       <div
         style={{
@@ -79,7 +78,11 @@ export default class CreditCardForm extends React.Component<Props, State> {
           number={creditCardNumber}
         />
 
-        <CVV2Field onChange={this.handleCVV2InputChange} number={cvv2} />
+        <CVV2Field
+          onChange={this.handleCVV2InputChange}
+          number={cvv2}
+          creditCardNumber={creditCardNumber}
+        />
         <DateFields
           onMonthChange={this.handleMonthChange}
           month={expirationMonth}
