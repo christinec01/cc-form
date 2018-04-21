@@ -20,12 +20,16 @@ const enabledStyle = {
   color: "#fff",
   borderColor: "black",
   borderSize: "1px",
-  borderStyle: "solid"
+  borderStyle: "solid",
+  cursor: "pointer"
 };
 
 export default function Button({ children, onClick, disabled }: Props) {
   return (
-    <div onClick={onClick} style={disabled ? disabledStyle : enabledStyle}>
+    <div
+      onClick={!disabled ? onClick : () => {}}
+      style={!disabled ? enabledStyle : disabledStyle}
+    >
       {children}
     </div>
   );

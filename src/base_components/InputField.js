@@ -22,7 +22,7 @@ export default class InputField extends React.Component<Props, State> {
     return (
       <input
         type={type}
-        style={{ fontSize: 14 }}
+        style={{ fontSize: 14, width: "-webkit-fill-available" }}
         value={value}
         placeholder={placeholder}
         onChange={this.handleInputChange}

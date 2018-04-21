@@ -1,13 +1,20 @@
 // @flow
 import React from "react";
 import InputField from "../../base_components/InputField";
-import { isKnownCreditVendor, getCreditVendor } from "../creditCardHelpers";
+import {
+  isKnownCreditVendor,
+  getCreditVendor,
+  cVV2IsValid
+} from "../creditCardHelpers";
+import InlineErrors from "../../base_components/InlineErrors";
+
 import { vendor } from "postcss";
 
 type Props = {
   number: string | null,
   onChange: string => void,
-  creditCardNumber: string | null
+  creditCardNumber: string | null,
+  errors: Array<string>
 };
 type State = {};
 export default class CVV2Field extends React.Component<Props, State> {
@@ -23,7 +30,7 @@ export default class CVV2Field extends React.Component<Props, State> {
     }
   };
   render() {
-    const { number, onChange, creditCardNumber } = this.props;
+    const { number, onChange, creditCardNumber, errors } = this.props;
     return (
       <div>
         <InputField
@@ -32,6 +39,8 @@ export default class CVV2Field extends React.Component<Props, State> {
           onChange={this.handleChange}
           value={number}
         />
+        <InlineErrors errors={errors} />
+
         {number &&
         creditCardNumber &&
         !isKnownCreditVendor(creditCardNumber) ? (

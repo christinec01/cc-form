@@ -2,12 +2,14 @@
 import React from "react";
 import InputField from "../../base_components/InputField";
 import { isDate } from "util";
+import InlineErrors from "../../base_components/InlineErrors";
 
 type Props = {
   onMonthChange: string => void,
   onYearChange: string => void,
   month: string | null,
-  year: string | null
+  year: string | null,
+  errors: Array<string>
 };
 type State = {};
 export default class DateFields extends React.Component<Props, State> {
@@ -20,22 +22,34 @@ export default class DateFields extends React.Component<Props, State> {
     this.props.onYearChange(newYear);
   };
   render() {
-    const { onYearChange, month, year } = this.props;
+    const { onYearChange, month, year, errors } = this.props;
     return (
-      <div>
-        <InputField
-          type="number"
-          value={month}
-          onChange={this.handleMonthChange}
-          placeholder="month"
-        />
-        <InputField
-          value={year}
-          type="number"
-          onChange={this.handleYearChange}
-          placeholder="year"
-        />
-        {!isDateValid(month, year) ? "Invalid date" : null}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between"
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <InputField
+            type="number"
+            value={month}
+            onChange={this.handleMonthChange}
+            placeholder="month"
+          />
+          <InlineErrors errors={errors} />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <InputField
+            value={year}
+            type="number"
+            onChange={this.handleYearChange}
+            placeholder="year"
+          />
+          <InlineErrors errors={errors} />
+          {!isDateValid(month, year) ? "Invalid date" : null}
+        </div>
       </div>
     );
   }

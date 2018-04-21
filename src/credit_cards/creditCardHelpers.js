@@ -30,3 +30,7 @@ export function getCreditVendor(
     return null;
   }
 }
+
+export function cVV2IsValid(cvv2: string, creditCardNumber: string) {
+  return cvv2 && creditCardNumber && !isKnownCreditVendor(creditCardNumber);
+}

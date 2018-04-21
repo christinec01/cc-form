@@ -7,12 +7,15 @@ import {
   isKnownCreditVendor,
   getCreditVendor
 } from "../creditCardHelpers";
+import InlineErrors from "../../base_components/InlineErrors";
 import { vendor } from "postcss";
 
 type Props = {
   number: string | null,
-  onChange: string => void
+  onChange: string => void,
+  errors: Array<string>
 };
+
 type State = {};
 export default class CreditCardNumber extends React.Component<Props, State> {
   handleChange = (number: string) => {
@@ -33,7 +36,7 @@ export default class CreditCardNumber extends React.Component<Props, State> {
     }
   };
   render() {
-    const { number } = this.props;
+    const { number, errors } = this.props;
     const vendorConfig = number ? getCreditVendor(number) : null;
     const groupings = vendorConfig ? vendorConfig.groupings : [];
     const value = addDashes(number, groupings);
@@ -45,6 +48,8 @@ export default class CreditCardNumber extends React.Component<Props, State> {
           onChange={this.handleChange}
           value={value}
         />
+        {/* with more time, I would find a way to handle edit vs. submission vs. api/backend errors in the same fashion */}
+        <InlineErrors errors={errors} />
         {number && !isKnownCreditVendor(number) ? (
           <div>Unrecognized credit card number</div>
         ) : null}
