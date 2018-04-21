@@ -5,14 +5,14 @@ export default class CreditCardNumber extends React.Component {
     this.props.onChange(e.target.value);
   };
   render() {
-    const { value } = this.props.value;
+    const { number } = this.props;
     return (
       <form>
         <input
           type="number"
           placeholder="Enter your credit card number"
           onChange={this.handleCreditCardChange}
-          value={value}
+          value={number}
         />
       </form>
     );

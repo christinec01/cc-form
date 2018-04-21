@@ -5,12 +5,12 @@ export default class Name extends React.Component {
     this.props.onChange(e.target.value);
   };
   render() {
-    const { value } = this.props;
+    const { name } = this.props;
     return (
       <form>
         <input
           type="text"
-          value={value}
+          value={name}
           placeholder="Your name as it appears on your credit card"
           onChange={this.handleNameFieldChange}
         />
