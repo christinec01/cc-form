@@ -11,4 +11,5 @@ export default {
     numberLength: 15,
     cvvLength: 4
   }
+  // additional entries need to be configured in `getCreditVendor`
 };

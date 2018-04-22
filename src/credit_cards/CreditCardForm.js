@@ -64,6 +64,7 @@ export default class CreditCardForm extends React.Component<Props, State> {
   handleMonthChange = (expirationMonth: string) => {
     this.setState({ expirationMonth }, this.clearSubmissionErrors);
   };
+
   handleYearChange = (expirationYear: string) => {
     this.setState({ expirationYear }, this.clearSubmissionErrors);
   };
@@ -93,10 +94,12 @@ export default class CreditCardForm extends React.Component<Props, State> {
       expirationYear,
       errors
     } = this.state;
+    // TODO(christine) consider handling nulls in credit vendor
     const vendor = creditCardNumber ? getCreditVendor(creditCardNumber) : null;
     return (
       <div
         style={{
+          // TODO(christine) pull out into style objects
           display: "flex",
           flexDirection: "column",
           width: 400,
@@ -206,16 +209,24 @@ function validateFormSubmission(
   if (
     !creditCardNumberIsValidForSubmission(formValue.creditCardNumber, vendor)
   ) {
-    errors.creditCardNumber.push("Credit card number is invalid");
+    errors.creditCardNumber.push(
+      `Credit card number must be ${
+        vendor ? vendor.numberLength : "a valid number of"
+      } characters`
+    );
   }
   if (!cvv2IsValidForSubmission(formValue.cvv2, vendor)) {
-    errors.cvv2.push("Cvv2 is invalid");
+    errors.cvv2.push(
+      `Cvv2 must be ${
+        vendor ? vendor.cvvLength : "a valid number of"
+      } characters`
+    );
   }
   if (
     !monthIsValidForSubmission(formValue.expirationMonth) ||
     !yearIsValidForSubmission(formValue.expirationYear)
   ) {
-    errors.dates.push("Date is invalid");
+    errors.dates.push("Date must be provided");
   }
   return errors;
 }

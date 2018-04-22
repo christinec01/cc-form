@@ -39,13 +39,13 @@ export default class CVV2Field extends React.Component<Props, State> {
           onChange={this.handleChange}
           value={number}
         />
-        <InlineErrors errors={errors} />
-
-        {number &&
-        creditCardNumber &&
-        !isKnownCreditVendor(creditCardNumber) ? (
-          <div>Unknown credit card</div>
-        ) : null}
+        <InlineErrors
+          errors={
+            number && creditCardNumber && !isKnownCreditVendor(creditCardNumber)
+              ? errors.concat(["Invalid CVV for credit card"])
+              : errors
+          }
+        />
       </div>
     );
   }

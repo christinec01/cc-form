@@ -24,32 +24,39 @@ export default class DateFields extends React.Component<Props, State> {
   render() {
     const { onYearChange, month, year, errors } = this.props;
     return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between"
-        }}
-      >
-        <div style={{ display: "flex", flexDirection: "column", width: 140 }}>
-          <InputField
-            type="number"
-            value={month}
-            onChange={this.handleMonthChange}
-            placeholder="Exp. Month"
-          />
-          <InlineErrors errors={errors} />
+      <div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between"
+          }}
+        >
+          <div style={{ display: "flex", flexDirection: "column", width: 140 }}>
+            <InputField
+              type="number"
+              value={month}
+              onChange={this.handleMonthChange}
+              placeholder="Exp. Month"
+            />
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", width: 140 }}>
+            <InputField
+              value={year}
+              type="number"
+              onChange={this.handleYearChange}
+              placeholder="Exp. Year"
+            />
+          </div>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", width: 140 }}>
-          <InputField
-            value={year}
-            type="number"
-            onChange={this.handleYearChange}
-            placeholder="Exp. Year"
-          />
-          <InlineErrors errors={errors} />
-          {!isDateValid(month, year) ? "Invalid date" : null}
-        </div>
+        {/* TODO(christine) this is not ideal; also needs padding */}
+        <InlineErrors
+          errors={
+            !isDateValid(month, year)
+              ? errors.concat(["Date cannot be in the past"])
+              : errors
+          }
+        />
       </div>
     );
   }

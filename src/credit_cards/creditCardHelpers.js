@@ -12,7 +12,7 @@ export function isKnownCreditVendor(number: string): boolean {
   if (number.length < 2) {
     return true;
   }
-  return isVisa(number) || isAmEx(number);
+  return !!getCreditVendor(number);
 }
 
 export function getCreditVendor(
