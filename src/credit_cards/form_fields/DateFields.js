@@ -97,10 +97,11 @@ function isDateValid(month: string | null, year: string | null): boolean {
   if (!month || (month && month.length < 2)) {
     return true;
   }
+
   const inputMonthValue = parseInt(month, 10);
   if (
     inputYearValue === currentYear &&
-    inputMonthValue < currentDate.getMonth()
+    inputMonthValue < currentDate.getMonth() + 1
   ) {
     return false;
   }
