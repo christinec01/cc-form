@@ -16,7 +16,9 @@ type State = {
   cvv2: string | null,
   expirationMonth: string | null,
   expirationYear: string | null,
-  errors: { [errorKey: string]: Array<string> }
+  errors: {
+    [errorKey: string]: Array<string>
+  }
 };
 
 type FormValue = State;
